@@ -16,6 +16,7 @@ COPY tsconfig*.json ./
 RUN npm run build --silent
 
 FROM nginx:1.25-alpine
+LABEL org.opencontainers.image.source https://github.com/merlingeo/formulaOne
 
 WORKDIR /etc/nginx/html
 

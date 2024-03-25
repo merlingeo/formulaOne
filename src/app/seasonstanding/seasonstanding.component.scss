@@ -1,0 +1,36 @@
+table {
+    width: 40%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 2px solid #e4b5b7bc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #e4b5b7bc;
+  }
+
+  .season-container{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 15px 0;
+  }
+
+  .opaque-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7); 
+}
+.spinner-container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}

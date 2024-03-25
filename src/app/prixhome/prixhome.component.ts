@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormulaOneService } from '../formula-one.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -14,6 +14,7 @@ import { GoogleMapComponent } from "../google-map/google-map.component";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ConstructorStandingComponent } from "../constructor-standing/constructor-standing.component";
+import { SeasonstandingComponent } from "../seasonstanding/seasonstanding.component";
 
 @Component({
     selector: 'app-prixhome',
@@ -27,11 +28,12 @@ import { ConstructorStandingComponent } from "../constructor-standing/constructo
     ],
     templateUrl: './prixhome.component.html',
     styleUrl: './prixhome.component.scss',
-    imports: [CommonModule, MatTooltipModule, MatSidenavModule, MatProgressSpinnerModule, MatCardModule, MatButtonModule, MatIconModule, MatTableModule, LinegraphComponent, GoogleMapComponent, ConstructorStandingComponent]
+    imports: [CommonModule, MatTooltipModule, MatSidenavModule, MatProgressSpinnerModule, MatCardModule, MatButtonModule, MatIconModule, MatTableModule, LinegraphComponent, GoogleMapComponent, ConstructorStandingComponent, SeasonstandingComponent]
 })
 export class PrixhomeComponent {
   
   driverDropDownArray:any[]=[];
+  circuitInfo: any;
   constructor(private formulaOneService: FormulaOneService,
               private route: ActivatedRoute,private router: Router) { }
 
@@ -53,7 +55,7 @@ export class PrixhomeComponent {
                      {icon :'sports_score',tooltip :'Qualifier Results'},
                      {icon :'mode_of_travel',tooltip :'Sprint Results'},
                      {icon :'emoji_events',tooltip :'Season Results'}]
-
+  
   ngOnInit(): void {
     this.changeSideNavColor(this.sideNavToDisplay[0]);
 
@@ -78,7 +80,7 @@ export class PrixhomeComponent {
       console.log(data);
       this.race_results = data.MRData.RaceTable.Races[0];
 
-      
+      this.circuitInfo = this.race_results.Circuit;
       this.race_results.Results.forEach((ele: any) => {
 
         this.ELEMENT_DATA_1.push({

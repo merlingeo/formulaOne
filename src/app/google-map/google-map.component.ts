@@ -109,6 +109,8 @@ async function initMap(): Promise<void> {
     title: 'Uluru'
   });
   initMap();
+
+  
 }
 
 

@@ -54,6 +54,40 @@ export class FormulaOneService {
     );
   }
 
+  getallConstructorRound(year:number,round:number){
+    return this.http.get(this.baseUrl + year+'/'+round+'/constructorStandings.json').pipe(
+      catchError(error => {
+        console.error('An error occurred:', error);
+        return throwError(() => new Error('something is wrong'))
+      })
+    );
+  }
+
+  getallConstructorDriversInRound(carmake:string,circuit:string){
+    return this.http.get(this.baseUrl + 'constructors/'+carmake+'/circuits/'+circuit+'/drivers.json').pipe(
+      catchError(error => {
+        console.error('An error occurred:', error);
+        return throwError(() => new Error('something is wrong'))
+      })
+    );
+  }
+
+  getallDriversInSeason(year:string){
+    return this.http.get(this.baseUrl +year+'/driverStandings.json').pipe(
+      catchError(error => {
+        console.error('An error occurred:', error);
+        return throwError(() => new Error('something is wrong'))
+      })
+    );
+  }
+  getallConstructorsInSeason(year :string){
+    return this.http.get(this.baseUrl +year+'/constructorStandings.json').pipe(
+      catchError(error => {
+        console.error('An error occurred:', error);
+        return throwError(() => new Error('something is wrong'))
+      })
+    );
+  }
 
 }
 

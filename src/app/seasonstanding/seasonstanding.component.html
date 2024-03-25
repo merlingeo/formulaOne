@@ -1,0 +1,56 @@
+<div class="season-container">
+  <div class="opaque-layer" *ngIf="isLoading"></div>
+  <div class="spinner-container" *ngIf="isLoading">
+    <mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="5">
+          <strong>Driver Standing Season - {{season}}</strong>
+        </th>
+      </tr>
+      <tr>
+        <th>Position</th>
+        <th>Name</th>
+        <th>Constructor</th>
+        <th>Wins</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of season_drivers">
+        <td>{{ item.position }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.constructor }}</td>
+        <td>{{ item.wins }}</td>
+        <td>{{ item.points }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="5">
+        <strong> Constructor Standing Season - {{season}}</strong>
+        </th>
+      </tr>
+      <tr>
+        <th>Position</th>
+        <th>Name</th>
+        <th>Wins</th>
+        <th>Points</th>
+        <th>Nationality</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of season_const">
+        <td>{{ item.position }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.wins }}</td>
+        <td>{{ item.points }}</td>
+        <td>{{ item.nationality }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

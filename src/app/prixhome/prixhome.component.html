@@ -37,7 +37,7 @@
             <!-- </mat-card-content> -->
         <!-- </mat-card> -->
     </div>
-    <div class="mid-body p-t-5 d-flex-row">
+    <div class="mid-body d-flex-row">
         <div class="mid-card-1">
             @for (item of sideNavToDisplay; track item) {
             <div class="sidenav-btn">
@@ -65,7 +65,7 @@
         </div>
         <!-- <mat-card class="mid-card-2">
             <mat-card-content> -->
-        <div class="mid-card-2" *ngIf="selectedSidenav===sideNavToDisplay[0]">
+        <div class="mid-card-2 p-t-5" *ngIf="selectedSidenav===sideNavToDisplay[0]">
 
             <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
                 @for (column of columnsToDisplay; track column; let idx = $index) {
@@ -123,7 +123,7 @@
             <!-- </mat-card-content>
             </mat-card> -->
         </div>
-        <div class="mid-card-3"  *ngIf="selectedSidenav===sideNavToDisplay[0]">
+        <div class="mid-card-3 p-t-5"  *ngIf="selectedSidenav===sideNavToDisplay[0]">
             <!-- <mat-card >
                 <mat-card-content> -->
                     <!--  -->
@@ -137,10 +137,12 @@
             </mat-card>
 
         </div>
-        <div class="constructor-container"  *ngIf="selectedSidenav===sideNavToDisplay[1]">
-            <app-constructor-standing></app-constructor-standing>
+        <div class="constructor-container p-t-5"  *ngIf="selectedSidenav===sideNavToDisplay[1]">
+            <app-constructor-standing [CrcuitIdInfo]="circuitInfo" (loadingEvent)="isLoading"></app-constructor-standing>
         </div>
-
+        <div class="constructor-container p-t-5"  *ngIf="selectedSidenav===sideNavToDisplay[4]">
+            <app-seasonstanding></app-seasonstanding>
+        </div>
     </div>
 
 </div>
