@@ -8,7 +8,7 @@ import { GoogleMapComponent } from './google-map/google-map.component';
 export const routes: Routes = [
     { path: 'prixhome', component: PrixhomeComponent },
     { path: 'home', component: HomeComponent },
-    // { path: '*', component: HomeComponent }
+    { path: '*', component: HomeComponent },
     { path: 'line', component: LinegraphComponent },
     { path: 'map', component: GoogleMapComponent }
     
