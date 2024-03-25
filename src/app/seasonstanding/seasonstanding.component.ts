@@ -23,7 +23,7 @@ export class SeasonstandingComponent implements OnInit {
     private route: ActivatedRoute, private router: Router) { }
   
   ngOnInit(): void {
-    console.log('seasoncomponet');
+    // console.log('seasoncomponet');
 
     this.route.queryParams.subscribe(params => {
       const lyear = params['year'];
@@ -43,7 +43,7 @@ export class SeasonstandingComponent implements OnInit {
   getDriverStandingSelectedRound(selectyear: any) {
     this.formulaOneService.getallDriversInSeason(selectyear).pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
+        // console.log(data);
         data.MRData.StandingsTable.StandingsLists[0].DriverStandings.map((ele:any) =>{
 
           this.season_drivers.push({position:ele.position,name :ele.Driver.givenName+' '+ele.Driver.familyName,
@@ -57,7 +57,7 @@ export class SeasonstandingComponent implements OnInit {
   getConstStandingSelectedRound(selectyear: any) {
     this.formulaOneService.getallConstructorsInSeason(selectyear).pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
+        // console.log(data);
         // this.season_const = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
 
         data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings.map((ele:any) =>{

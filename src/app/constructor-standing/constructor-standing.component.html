@@ -1,6 +1,10 @@
 <div class="const-main">
+    <div class="opaque-layer" *ngIf="isLoading"></div>
+    <div class="spinner-container" *ngIf="isLoading">
+       <mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+   </div>
     <div class="heading-main">
-        <h1>Constructor Standings in the Race</h1>
+        <h1 style="background-color:white;">Constructor Standings in the Race</h1>
     </div>
     <div>
         <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">

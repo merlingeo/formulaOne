@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { FormulaOneService } from '../formula-one.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @Component({
   selector: 'app-constructor-standing',
   standalone: true,
@@ -18,7 +20,7 @@ import { Subject, takeUntil } from 'rxjs';
         transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
 ],
-  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatTableModule, MatIconModule,MatProgressSpinnerModule, MatButtonModule],
   templateUrl: './constructor-standing.component.html',
   styleUrl: './constructor-standing.component.scss'
 })
@@ -48,9 +50,8 @@ export class ConstructorStandingComponent implements OnInit {
       const lyear = params['year'];
       const lround = params['round'];
 
-
-      console.log('in this component');
-      this.controlSpinner(true);
+      // this.controlSpinner(true);
+      this.isLoading = true;
       this.getConstructorSelectedRound(lyear, lround);
     });
 
@@ -61,7 +62,7 @@ export class ConstructorStandingComponent implements OnInit {
   getConstructorSelectedRound(selectyear: any, round: number) {
     this.formulaOneService.getallConstructorRound(selectyear, round).pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
+        // console.log(data);
         this.race_results = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
 
 
@@ -80,32 +81,28 @@ export class ConstructorStandingComponent implements OnInit {
 
         });
 
-        console.log(this.ELEMENT_DATA_1);
+        // console.log(this.ELEMENT_DATA_1);
 
         this.dataSource = this.ELEMENT_DATA_1;
-        console.log('this.dataSource>>>>>>>cosnt', this.dataSource);
 
 
-        this.controlSpinner(false);
+        // this.controlSpinner(false);
+        this.isLoading = false;
       })
 
 
   }
 
-  controlSpinner(data: any){
-    console.log('event spimmeet');
-    
+  controlSpinner(data: any){    
     this.loadingEvent.emit(data);
   }
 
   fetchallDrivers(dataItem: any){
     this.finalDriverString='';
-    console.log('data fetch',dataItem );
-    console.log(this.CrcuitIdInfo.circuitId);
     
     this.formulaOneService.getallConstructorDriversInRound(dataItem.ConstructorId,this.CrcuitIdInfo.circuitId).pipe(takeUntil(this.destroy$))
     .subscribe((data: any) => {
-      console.log(data);
+      // console.log(data);
       this.driver_results = data.MRData.DriverTable.Drivers;
       let driverstring='';
       this.driver_results.forEach((element: { givenName: string; familyName: string; },index: number) => {

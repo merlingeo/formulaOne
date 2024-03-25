@@ -12,15 +12,22 @@
             <!-- <mat-card-content> -->
                 <div class="head-parent d-flex-row">
                     <div class="head-title-container">
-                        <div class="year-head">
+                        <div class="year-head left-year">
                             <span>{{race_results?.season ?race_results?.season :'season'}}</span>
                         </div>
                         <div class="year-head">
                             <span>{{race_results?.raceName}}</span>
                         </div>
                         <div class="square-box">
-                            <span>Round</span>
-                            <span>{{race_results?.round}}</span>
+                            <div>
+                                <!-- <span>Circuit Name :</span> -->
+                                <span>{{circuitInfo?.circuitName}}</span>
+                                
+                            </div>
+                            <div>
+                                <span>Round </span>
+                                <span>{{race_results?.round}}</span>
+                            </div>
 
                         </div>
                         <div>
@@ -75,7 +82,7 @@
                     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
                     }
                     @else {
-                    <td [ngClass]="{redpill:'true'}" *matCellDef="let element">
+                    <td  *matCellDef="let element">
                         <div class="rankpill">
                             {{element[column]}}
                         </div>
@@ -105,8 +112,18 @@
                             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
 
                             <div class="example-element-description">
-                                {{element.description}}
-                                <span class="example-element-description-attribution"> -- Wikipedia </span>
+                                @for (item of element.Description;track item;) {
+                                    <div class="desc-container">
+                                       <span class="boxed-text">Code&nbsp;:&nbsp;{{item.code}}</span>
+                                       <span class="boxed-text" [ngClass]="item.permanentNumber=='NA'?'color-grayed' :''">Permanent Number&nbsp;:&nbsp;{{item.permanentNumber}}</span>
+                                       <span class="boxed-text"[ngClass]="item.grid=='NA'?'color-grayed' :''">Grid&nbsp;:&nbsp;{{item.grid}}</span>
+                                       <span class="boxed-text"[ngClass]="item.status=='NA'?'color-grayed' :''">Status&nbsp;:&nbsp;{{item.status}}</span>
+                                       <span class="boxed-text"[ngClass]="item.fastestlap=='NA'?'color-grayed' :''">Fastest Lap&nbsp;:&nbsp;{{item.fastestlap}}</span>
+                                       <span class="boxed-text"[ngClass]="item.fastestlaprank=='NA'?'color-grayed' :''">Fastest Lap Rank&nbsp;:&nbsp;{{item.fastestlaprank}}</span>
+                                       <span class="boxed-text"[ngClass]="item.fastestlaptime=='NA'?'color-grayed' :''">Fastest Lap Time&nbsp;:&nbsp;{{item.fastestlaptime}}</span>
+                                    </div>
+                                }
+                                <!-- <span class="example-element-description-attribution"> -- Wikipedia </span> -->
                             </div>
                         </div>
                     </td>
@@ -130,17 +147,18 @@
                     <app-linegraph *ngIf="driverDropDownArray.length!==0" [graphData] ="driverDropDownArray"></app-linegraph>
                 <!-- </mat-card-content>
             </mat-card> -->
-            <mat-card >
-                <mat-card-content>
-                    <app-google-map></app-google-map>
-                </mat-card-content>
-            </mat-card>
+            <!-- <mat-card style="margin-top: 5px; -->
+            <!-- height: max-content;" *ngIf="circuitInfo.length!==0"> -->
+                <!-- <mat-card-content> -->
+                    <!-- <app-google-map  [circuitDetails]="circuitInfo"></app-google-map> -->
+                <!-- </mat-card-content> -->
+            <!-- </mat-card> -->
 
         </div>
         <div class="constructor-container p-t-5"  *ngIf="selectedSidenav===sideNavToDisplay[1]">
             <app-constructor-standing [CrcuitIdInfo]="circuitInfo" (loadingEvent)="isLoading"></app-constructor-standing>
         </div>
-        <div class="constructor-container p-t-5"  *ngIf="selectedSidenav===sideNavToDisplay[4]">
+        <div class="constructor-container p-t-5"  *ngIf="selectedSidenav===sideNavToDisplay[2]">
             <app-seasonstanding></app-seasonstanding>
         </div>
     </div>

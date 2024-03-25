@@ -28,7 +28,7 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            background: whitesmoke;
+            background-color: #e95050;
         }
     }
 }
@@ -40,7 +40,7 @@
     // width: 28px;
     // font-size: 14px;
     // line-height: 26px;
-    background-color: #3498db;
+    // background-color: #f46060;
     color: white;
     text-align: center;
     font-weight: 700;
@@ -48,7 +48,13 @@
     flex-direction: column;
   }
 
+  .left-year{
+    width: 10%;
+    background-color: #e95050;
+    color: white;
+  }
   .year-head{
+   
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,6 +65,7 @@
 
 
   .head-parent{
+    background-color: #e95050;
     width: 100%;
     justify-content: space-between;
   }
@@ -106,6 +113,17 @@
     margin-left: 2px;
     flex: 1;
     height :fit-content;
+
+    table tr:first-child {
+      td:nth-last-child(2){
+        color: green;
+      }
+    }
+    table tr:not(:first-child){
+      td:nth-last-child(2){
+        color: red;
+      }
+    }
 
 }
 
@@ -171,6 +189,7 @@
     padding: 0px !important;
     text-align: center !important;
   }
+ 
   .rankpill{
     background-color: lightblue;
     text-align: center;
@@ -190,4 +209,18 @@
 .constructor-container{
   width: 94%;
   margin-right: 5px;
+}
+.boxed-text {
+  border: 1px solid #00000024;
+  padding: 4px 8px;
+}
+
+.color-grayed{
+  color: lightgray;
+}
+
+.desc-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

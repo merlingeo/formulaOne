@@ -33,7 +33,7 @@ import { SeasonstandingComponent } from "../seasonstanding/seasonstanding.compon
 export class PrixhomeComponent {
   
   driverDropDownArray:any[]=[];
-  circuitInfo: any;
+  circuitInfo: any=[];
   constructor(private formulaOneService: FormulaOneService,
               private route: ActivatedRoute,private router: Router) { }
 
@@ -52,9 +52,10 @@ export class PrixhomeComponent {
   selectedSidenav:any;
   sideNavToDisplay =[{icon :'sports_motorsports',tooltip :'Driver Standing'},
                      {icon :'emoji_transportation',tooltip :'Constructor Standing'},
+                     {icon :'emoji_events',tooltip :'Season Results'},
                      {icon :'sports_score',tooltip :'Qualifier Results'},
-                     {icon :'mode_of_travel',tooltip :'Sprint Results'},
-                     {icon :'emoji_events',tooltip :'Season Results'}]
+                     {icon :'mode_of_travel',tooltip :'Sprint Results'}
+                    ]
   
   ngOnInit(): void {
     this.changeSideNavColor(this.sideNavToDisplay[0]);
@@ -77,10 +78,12 @@ export class PrixhomeComponent {
   getSelectedRoundDetails(selectyear:any,round:number){
     this.formulaOneService.getRoundDetails(selectyear,round).pipe(takeUntil(this.destroy$))
     .subscribe((data:any) => {
-      console.log(data);
+      // console.log(data);
       this.race_results = data.MRData.RaceTable.Races[0];
 
       this.circuitInfo = this.race_results.Circuit;
+      // console.log(this.circuitInfo);
+      
       this.race_results.Results.forEach((ele: any) => {
 
         this.ELEMENT_DATA_1.push({
@@ -89,7 +92,14 @@ export class PrixhomeComponent {
           Points :ele.points,
           Driver :ele.Driver.givenName +' '+ele.Driver.familyName,
           Constructor: ele.Constructor.name,
-          Time : ele.Time?ele.Time.time:''
+          Time : ele.Time?ele.Time.time:'',
+          Description: [{code:ele.Driver.code?ele.Driver.code:'NA',
+            permanentNumber: ele.Driver.permanentNumber?ele.Driver.permanentNumber:'NA',
+            fastestlap :ele.FastestLap?.lap?ele.FastestLap.lap :'NA',
+            fastestlaprank:ele.FastestLap?.rank?ele.FastestLap.rank:'NA',
+            grid:ele.grid?ele.grid:'NA',
+            status:ele.status?ele.status:'NA',
+            fastestlaptime :ele.FastestLap?.AverageSpeed?.speed? ele.FastestLap?.AverageSpeed?.speed+' '+ele.FastestLap?.AverageSpeed?.units:'NA'}]
   
         });
         this.driverDropDownArray.push({
@@ -98,13 +108,9 @@ export class PrixhomeComponent {
           dvrName :ele.Driver.givenName +' '+ele.Driver.familyName
         });
       });
-
-      console.log(this.ELEMENT_DATA_1);
       
       this.dataSource =this.ELEMENT_DATA_1;
-      
-      console.log('>>>>>>>>>>>>>>dropdown',this.driverDropDownArray);
-      
+            
       this.isLoading=false;
     })
   }
@@ -114,11 +120,9 @@ export class PrixhomeComponent {
   }
 
   changeSideNavColor(btn_ele: any){
-    console.log(btn_ele);
+    // console.log(btn_ele);
     this.selectedSidenav = btn_ele;
 
-
-    
   }
   
 }
@@ -129,6 +133,7 @@ export interface RaceElement {
   Points :number,
   Driver :string,
   Constructor: string,
-  Time : string
+  Time : string,
+  Description: any[]
 }
 

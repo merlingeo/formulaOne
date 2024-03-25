@@ -70,7 +70,7 @@ export class LinegraphComponent {
     this.route.queryParams.subscribe(params => {
       this.yearSelected = +params['year'];
       this.roundSelected = +params['round'];
-      console.log(this.yearSelected);
+      // console.log(this.yearSelected);
       
 
       this.getDriverLapDetails(this.graphData[0].dvrId);
@@ -117,11 +117,11 @@ export class LinegraphComponent {
   }
 
   getDriverLapDetails(dvrId: string) {
-    console.warn('whos calin!!!!!!!!!!');
+    // console.warn('whos calin!!!!!!!!!!');
     let graph_arr:any[]=[];
     this.formulaOneService.getDriverLapsinPrix(this.yearSelected.toString(),this.roundSelected.toString(),dvrId).pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
+        // console.log(data);
         data.MRData.RaceTable?.Races[0]?.Laps.map((ele: { number: any; Timings: { time: any; }[]; }) => {
           graph_arr.push({ lap: ele.number,
                            passingtime: ele.Timings[0].time })
@@ -135,15 +135,9 @@ export class LinegraphComponent {
         this.yAxisArray.push(yData);
 
         this.driverObj = { [dvrId]: {xData,yData} };
-        console.log('graphObj,>>>>>>>',this.driverObj);
+        // console.log('graphObj,>>>>>>>',this.driverObj);
 
         this.graphObj.push(this.driverObj);
-        // let driverLabels =Object.keys( this.graphObj)     
-        // console.log(' this.yAxisArray', this.yAxisArray);
-  
-        // this.testGraph(xData,yData);
-
-        // this.createGraph(this.xAxisArray, this.yAxisArray);
         this.createGraph(this.graphObj);
       })
 
@@ -175,37 +169,11 @@ export class LinegraphComponent {
     // graphObj[0].rosberg
     // let xData = graph_arr.map((ele: { lap: any; })=>ele.lap)
     graphObj.forEach((element: { [x: string]: any; },index: number) => {
-         console.log(element[driverLabels[index]].xData);
+        //  console.log(element[driverLabels[index]].xData);
          
       xData.push(element[driverLabels[index]].xData)
       yData.push(element[driverLabels[index]].yData)
     });
-
-    // var plotingPoints :any= Object.values(graphObj[0])[0];
-    // var yD=Object.values(graphObj[0])[1];
-
-    
-    // var xData = [
-    //   ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'],
-    //   ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13']
-      // [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013],
-      // [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013],
-      // [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013],
-      // [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013],
-      // [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013]
-    // ];
-
-    // var yData = [
-    //   [121.628, 111.375, 110.25, 138.361, 158.864, 129.49, 108.572, 109.31, 109.255, 109.98, 108.813, 109.204, 109.246, 109.523, 109.511, 108.996, 108.46, 108.533, 108.588, 108.606, 129.704],
-    //   [109.255, 109.98, 108.813, 109.204, 109.246, 109.523, 109.511, 108.996, 108.46, 108.533, 108.588, 108.606, 129.704]
-      // [45, 42, 50, 46, 36, 36, 34, 35, 32, 31, 31, 28],
-      // [13, 14, 20, 24, 20, 24, 24, 40, 35, 41, 43, 50],
-      // [18, 21, 18, 21, 16, 14, 13, 18, 17, 16, 19, 23],
-      // [24, 54, 10, 74, 40, 14, 54, 11, 30, 21, 43, 30],
-      // [12, 45, 23, 45, 25, 27, 52, 17, 63, 32, 74, 53]
-
-
-    // ];
 
     var colors = [
     ];
@@ -250,6 +218,7 @@ export class LinegraphComponent {
         showticklabels: true,
         linecolor: 'rgb(204,204,204)',
         // linewidth: 2,
+        title: 'Laps',
         autotick: true,
         ticks: 'outside',
         tickcolor: 'rgb(204,204,204)',
@@ -264,6 +233,7 @@ export class LinegraphComponent {
       yaxis: {
         showgrid: false,
         linecolor: 'rgb(204,204,204)',
+        title: 'milliseconds (ms)',
         zeroline: false,
         showline: false,
         showticklabels: false,
@@ -283,10 +253,10 @@ export class LinegraphComponent {
           y: 1.05,
           xanchor: 'left',
           yanchor: 'bottom',
-          text: 'Main Source for News',
+          text: 'Lap Time Comparison Plot between Drivers',
           font: {
             family: 'Arial',
-            size: 30,
+            size: 20,
             color: 'rgb(37,37,37)'
           },
           showarrow: false
@@ -295,10 +265,10 @@ export class LinegraphComponent {
           xref: 'paper',
           yref: 'paper',
           x: 0.5,
-          y: -0.1,
+          y: -0.2,
           xanchor: 'center',
           yanchor: 'top',
-          text: 'Source: Pew Research Center & Storytelling with data',
+          text: 'Ploted with data available from Ergast API. Lap time is in milliseconds',
           showarrow: false,
           font: {
             family: 'Arial',
@@ -310,38 +280,6 @@ export class LinegraphComponent {
     };
 
 
-    // for (var i = 0; i < xData.length; i++) {
-    //   var result3: Partial<Annotations> = {
-    //     xref: 'paper',
-    //     x: 0,
-    //     y: yData[i][0],
-    //     xanchor: 'right',
-    //     yanchor: 'auto',
-    //     // text: labels[i],
-    //     showarrow: false,
-    //     font: {
-    //       family: 'Arial',
-    //       size: 10,
-    //       color: 'black'
-    //     }
-    //   };
-    //   var result4: Partial<Annotations> = {
-    //     xref: 'paper',
-    //     x: 0.95,
-    //     y: yData[i][11],
-    //     xanchor: 'left',
-    //     yanchor: 'middle',
-    //     text: 'winner',
-    //     font: {
-    //       family: 'Arial',
-    //       size: 10,
-    //       color: 'black'
-    //     },
-    //     showarrow: false
-    //   };
-
-      // layout.annotations?.push(result3, result4)
-    // }
     Plotly.newPlot('myDiv', data, layout);
     this.isLoading=false;
   }
@@ -349,10 +287,8 @@ export class LinegraphComponent {
 
   removeChip(evnt:any){
 
-    console.log(evnt.value );
-    console.log('test succes');
     this.dChips = this.dChips.filter(ele => ele !== evnt);
-    console.log(this.dChips);
+    // console.log(this.dChips);
     
     // this.driverOptions.push(evnt);
     this.driverOptions.splice(evnt.position-1, 0, evnt);
@@ -372,12 +308,12 @@ export class LinegraphComponent {
 
 
 
-    console.log('Selected value:', event.value);
+    // console.log('Selected value:', event.value);
     // You can perform any actions with the selected value here
-    console.log( );
+    // console.log( );
     this.newchip = this.driverOptions.find(item => item.dvrId === event.value);
     this.dChips.push(this.newchip);
-    console.log(this.newchip);
+    // console.log(this.newchip);
     
     this.driverOptions = this.driverOptions.filter(driver => driver.dvrId !== event.value);
   }
