@@ -5,6 +5,8 @@ body,app-root { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   height: 100%;
   display: block;
   overflow-x: auto;
+
+
  }
 :host {
     --bright-blue: oklch(51.01% 0.274 263.83);
@@ -60,9 +62,8 @@ body,app-root { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   }
 
   main {
-
-    background: rgb(219,234,250);
-    background: linear-gradient(0deg, rgba(219,234,250,0.9724410882517069) 0%, rgba(255,255,255,0.9024130770472252) 90%);
+    background-image: url('./assets/carhomewall.png');
+    background-size: cover; 
     min-height: 100%;
     display: flex;
     justify-content: center;
