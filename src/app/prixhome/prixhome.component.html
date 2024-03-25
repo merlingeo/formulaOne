@@ -1,0 +1,146 @@
+<div class="prixhome-container">
+    
+    <div class="main-top-container">
+        <div class="opaque-layer" *ngIf="isLoading"></div>
+         <div class="spinner-container" *ngIf="isLoading">
+            <mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        <!-- <mat-card>
+            <mat-card-content>Simple card</mat-card-content>
+          </mat-card> -->
+        <!-- <mat-card> -->
+            <!-- <mat-card-content> -->
+                <div class="head-parent d-flex-row">
+                    <div class="head-title-container">
+                        <div class="year-head">
+                            <span>{{race_results?.season ?race_results?.season :'season'}}</span>
+                        </div>
+                        <div class="year-head">
+                            <span>{{race_results?.raceName}}</span>
+                        </div>
+                        <div class="square-box">
+                            <span>Round</span>
+                            <span>{{race_results?.round}}</span>
+
+                        </div>
+                        <div>
+                            <button mat-icon-button (click)="navigateHome()">
+                                <mat-icon>home</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="area-details">
+
+                </div>
+            <!-- </mat-card-content> -->
+        <!-- </mat-card> -->
+    </div>
+    <div class="mid-body p-t-5 d-flex-row">
+        <div class="mid-card-1">
+            @for (item of sideNavToDisplay; track item) {
+            <div class="sidenav-btn">
+                <button mat-button [class.selected]="item === selectedSidenav" matTooltip={{item.tooltip}} (click)="changeSideNavColor(item)"><span class="material-icons">
+                    {{item.icon}}
+                    </span></button>
+                </div>
+            }
+            <!-- <div class="sidenav-btn">
+                <button mat-button  #btn2  [ngClass]="" (click)="changeColor(btn2)" matTooltip="Info about the action"><span class="material-icons">
+                    emoji_transportation
+                    </span></button>
+            </div> -->
+            <!-- <div class="sidenav-btn">
+                <button mat-button #btn3  [ngClass]="" (click)="changeColor(btn3)"><span class="material-icons">
+                    speed
+                    </span></button>
+            </div> -->
+            <!-- <div class="sidenav-btn">
+                <button mat-button #btn4  [ngClass]="" (click)="changeColor(btn4)"><span class="material-icons">
+                    radar
+                    </span></button>
+            </div> -->
+
+        </div>
+        <!-- <mat-card class="mid-card-2">
+            <mat-card-content> -->
+        <div class="mid-card-2" *ngIf="selectedSidenav===sideNavToDisplay[0]">
+
+            <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+                @for (column of columnsToDisplay; track column; let idx = $index) {
+                <ng-container matColumnDef="{{column}}">
+                    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                    @if (idx !=1) {
+                    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                    }
+                    @else {
+                    <td [ngClass]="{redpill:'true'}" *matCellDef="let element">
+                        <div class="rankpill">
+                            {{element[column]}}
+                        </div>
+                    </td>
+                    }
+
+                </ng-container>
+                }
+                <ng-container matColumnDef="expand">
+                    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button aria-label="expand row"
+                            (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                            @if (expandedElement === element) {
+                            <mat-icon>keyboard_arrow_up</mat-icon>
+                            } @else {
+                            <mat-icon>keyboard_arrow_down</mat-icon>
+                            }
+                        </button>
+                    </td>
+                </ng-container>
+
+                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                <ng-container matColumnDef="expandedDetail">
+                    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                        <div class="example-element-detail"
+                            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+                            <div class="example-element-description">
+                                {{element.description}}
+                                <span class="example-element-description-attribution"> -- Wikipedia </span>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+                <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+                    [class.example-expanded-row]="expandedElement === element"
+                    (click)="expandedElement = expandedElement === element ? null : element">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+            </table>
+
+            <!-- </mat-card-content>
+            </mat-card> -->
+        </div>
+        <div class="mid-card-3"  *ngIf="selectedSidenav===sideNavToDisplay[0]">
+            <!-- <mat-card >
+                <mat-card-content> -->
+                    <!--  -->
+                    <app-linegraph *ngIf="driverDropDownArray.length!==0" [graphData] ="driverDropDownArray"></app-linegraph>
+                <!-- </mat-card-content>
+            </mat-card> -->
+            <mat-card >
+                <mat-card-content>
+                    <app-google-map></app-google-map>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+        <div class="constructor-container"  *ngIf="selectedSidenav===sideNavToDisplay[1]">
+            <app-constructor-standing></app-constructor-standing>
+        </div>
+
+    </div>
+
+</div>

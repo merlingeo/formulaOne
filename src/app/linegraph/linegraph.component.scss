@@ -1,0 +1,33 @@
+.my-chips{
+
+
+    display: flex;
+    flex-wrap: wrap;
+    .chipstyle{
+        // padding: 2px;
+        padding: 2px 10px;
+        margin: 5px;
+        border-radius: 2.75rem;
+        background: #e040403b;
+        display: flex;
+        justify-content: center;
+
+        align-items: center;
+
+        mat-icon{
+            // font-size: 10px;
+            color: #80808038;;
+        }
+    }
+  }
+  .spinner-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+  }
+
+.mat-mdc-form-field{
+  width: 100%;
+}
