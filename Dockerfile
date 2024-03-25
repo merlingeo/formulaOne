@@ -12,6 +12,7 @@ RUN npm i --save-dev @types/plotly.js-dist-min
 COPY ./src ./src
 COPY angular.json ./
 COPY tsconfig*.json ./
+COPY ./assets ./assets
 
 RUN npm run build --silent
 
