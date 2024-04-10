@@ -147,16 +147,15 @@
                     <app-linegraph *ngIf="driverDropDownArray.length!==0" [graphData] ="driverDropDownArray"></app-linegraph>
                 <!-- </mat-card-content>
             </mat-card> -->
-            <!-- <mat-card style="margin-top: 5px; -->
-            <!-- height: max-content;" *ngIf="circuitInfo.length!==0"> -->
-                <!-- <mat-card-content> -->
-                    <!-- <app-google-map  [circuitDetails]="circuitInfo"></app-google-map> -->
-                <!-- </mat-card-content> -->
-            <!-- </mat-card> -->
+            <mat-card style="margin-top: 5px;height: max-content;" *ngIf="circuitLatLong.length!==0">
+                <mat-card-content>
+                    <app-google-map  [circuitInfo]="circuitLatLong"></app-google-map>
+                </mat-card-content>
+            </mat-card>
 
         </div>
         <div class="constructor-container p-t-5"  *ngIf="selectedSidenav===sideNavToDisplay[1]">
-            <app-constructor-standing [CrcuitIdInfo]="circuitInfo" (loadingEvent)="isLoading"></app-constructor-standing>
+            <app-constructor-standing [CrcuitIdInfo]="circuitInfo " (loadingEvent)="isLoading"></app-constructor-standing>
         </div>
         <div class="constructor-container p-t-5"  *ngIf="selectedSidenav===sideNavToDisplay[2]">
             <app-seasonstanding></app-seasonstanding>

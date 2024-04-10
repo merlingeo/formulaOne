@@ -34,6 +34,7 @@ export class PrixhomeComponent {
   
   driverDropDownArray:any[]=[];
   circuitInfo: any=[];
+  circuitLatLong: any=[];
   constructor(private formulaOneService: FormulaOneService,
               private route: ActivatedRoute,private router: Router) { }
 
@@ -82,7 +83,8 @@ export class PrixhomeComponent {
       this.race_results = data.MRData.RaceTable.Races[0];
 
       this.circuitInfo = this.race_results.Circuit;
-      // console.log(this.circuitInfo);
+      this.circuitLatLong=[{lat: Number(this.circuitInfo.Location.lat), lng:Number(this.circuitInfo.Location.long)}]
+      console.log(this.circuitInfo);
       
       this.race_results.Results.forEach((ele: any) => {
 
